@@ -3,11 +3,11 @@
     <div class="container">
       <div class="main__header">
         <h2 class="main__title">Добавление товара</h2>
-        <ProductSorting />
+        <ProductSorting @setSelectHandler="setSelect" />
       </div>
       <div class="main__content">
-        <ProductForm />
-        <ProductList />
+        <ProductForm @addCardHandler="addCard" />
+        <ProductList :list="list" @deleteItemHandler="deleteItem" />
       </div>
     </div>
   </div>
@@ -26,30 +26,75 @@ export default {
     ProductList,
   },
   data() {
-    return {};
+    return {
+      list: [
+        {
+          id: new Date().getTime(),
+          img: "https://images.wallpaperscraft.ru/image/single/fotoapparat_pirs_pesok_128809_1280x720.jpg",
+          title: "Наименование товара",
+          desc: "Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк",
+          price: "10 000",
+        },
+      ],
+      sorting: "default",
+    };
+  },
+  methods: {
+    addCard(item) {
+      this.list.push(item);
+      this.setLocalStorage();
+    },
+    deleteItem(index) {
+      this.list.splice(index, 1);
+      this.setLocalStorage();
+    },
+    setLocalStorage() {
+      localStorage.setItem("product", JSON.stringify(this.list));
+    },
+    setList() {
+      this.list = JSON.parse(localStorage.getItem("product"))
+        ? JSON.parse(localStorage.getItem("product"))
+        : [];
+    },
+    setSelect(item) {
+      if (item.type === "default") {
+        this.setList();
+      } else if (item.type === "min") {
+        this.list = this.list.sort((item1, item2) => {
+          return item1["price"]?.localeCompare(item2["price"]);
+        });
+      } else if (item.type === "max") {
+        this.list = this.list.sort((item1, item2) => {
+          return item2["price"]?.localeCompare(item1["price"]);
+        });
+      }
+    },
+  },
+  created() {
+    this.setList();
   },
 };
 </script>
 
 <style lang="scss" scoped>
-
-$color-black: #3F3F3F;
-
-.container {
-  width: 100%;
-  max-width: 1440px;
-  padding: 0 32px;
-}
+@import "./style/_variable";
 
 .main {
-	&__title {
-		font-family: 'Source Sans Pro';
-		font-style: normal;
-		font-weight: 600;
-		font-size: 28px;
-		line-height: 35px;
-		color: $color-black;
-	}
+  padding-top: 32px;
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 16px;
+  }
+  &__title {
+    font-weight: 600;
+    font-size: 28px;
+    line-height: 35px;
+    color: $color-black;
+  }
+  &__content {
+    display: flex;
+    justify-content: space-between;
+  }
 }
-
 </style>
