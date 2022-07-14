@@ -40,22 +40,27 @@ export default {
     };
   },
   methods: {
+		//Добавление новой карточки в список
     addCard(item) {
       this.list.push(item);
       this.setLocalStorage();
     },
+		//Удаление карточки из списка
     deleteItem(index) {
       this.list.splice(index, 1);
       this.setLocalStorage();
     },
+		//Добавление в локальное хранилище 
     setLocalStorage() {
       localStorage.setItem("product", JSON.stringify(this.list));
     },
+		//Установка листа из локального хронилища при загрузке страницы
     setList() {
       this.list = JSON.parse(localStorage.getItem("product"))
         ? JSON.parse(localStorage.getItem("product"))
         : [];
     },
+		//Сортировка страницы
     setSelect(item) {
       if (item.type === "default") {
         this.setList();
