@@ -93,5 +93,9 @@ export default {
 		opacity: 0;
 		transition: all .3s ease;
 	}
+	&__delete-svg {
+		width: 16px;
+		height: 16px;
+	}
 }
 </style>
