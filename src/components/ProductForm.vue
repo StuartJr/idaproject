@@ -142,6 +142,12 @@ export default {
   max-width: 348px;
   padding-right: 16px;
 
+  @media screen and (max-width: 1024px) {
+    padding-right: 0;
+    padding-bottom: 16px;
+    max-width: 100%;
+  }
+
   &__wrapper {
     position: sticky;
     top: 24px;

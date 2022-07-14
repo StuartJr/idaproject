@@ -43,6 +43,14 @@ export default {
     grid-template-columns: 1fr 1fr 1fr;
     gap: 16px;
     max-width: 1028px;
+
+		@media screen and (max-width: 1400px) {
+			grid-template-columns: 1fr 1fr;
+		}
+
+		@media screen and (max-width: 756px) {
+			grid-template-columns: 1fr;
+		}
   }
 }
 

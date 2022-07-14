@@ -40,27 +40,27 @@ export default {
     };
   },
   methods: {
-		//Добавление новой карточки в список
+    //Добавление новой карточки в список
     addCard(item) {
-      this.list.push(item);
+      this.list = [...this.list, item];
       this.setLocalStorage();
     },
-		//Удаление карточки из списка
+    //Удаление карточки из списка
     deleteItem(index) {
       this.list.splice(index, 1);
       this.setLocalStorage();
     },
-		//Добавление в локальное хранилище 
+    //Добавление в локальное хранилище
     setLocalStorage() {
       localStorage.setItem("product", JSON.stringify(this.list));
     },
-		//Установка листа из локального хронилища при загрузке страницы
+    //Установка листа из локального хронилища при загрузке страницы
     setList() {
       this.list = JSON.parse(localStorage.getItem("product"))
         ? JSON.parse(localStorage.getItem("product"))
         : [];
     },
-		//Сортировка страницы
+    //Сортировка страницы
     setSelect(item) {
       if (item.type === "default") {
         this.setList();
@@ -90,16 +90,28 @@ export default {
     display: flex;
     justify-content: space-between;
     padding-bottom: 16px;
+
+    @media screen and (max-width: 756px) {
+      flex-direction: column;
+    }
   }
   &__title {
     font-weight: 600;
     font-size: 28px;
     line-height: 35px;
     color: $color-black;
+
+    @media screen and (max-width: 756px) {
+      padding-bottom: 16px;
+    }
   }
   &__content {
     display: flex;
     justify-content: space-between;
+
+    @media screen and (max-width: 1024px) {
+      flex-direction: column;
+    }
   }
 }
 </style>

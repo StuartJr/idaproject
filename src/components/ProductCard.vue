@@ -49,6 +49,7 @@ export default {
 	}
 
   &__img {
+		display: block;
     width: 332px;
     height: 200px;
 		border-radius: 4px 4px 0px 0px;
@@ -64,9 +65,13 @@ export default {
     padding-bottom: 16px;
   }
   &__desc {
+		height: 80px;
+		max-width: 300px;
+		overflow: hidden;
+		text-overflow: ellipsis;
     font-size: 16px;
     line-height: 20px;
-    padding-bottom: 32px;
+    margin-bottom: 32px;
   }
   &__price {
     font-weight: 600;
